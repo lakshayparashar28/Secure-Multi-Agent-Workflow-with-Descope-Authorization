@@ -4,9 +4,11 @@ import { motion } from "framer-motion";
 export default function App() {
   const [workflow, setWorkflow] = useState(null);
 
-  const runPipeline = async () => {
-    try {
-      const res = await fetch("http://localhost:3001/submit-doc", {
+const runPipeline = async () => {
+  try {
+    const res = await fetch(
+      `${import.meta.env.VITE_API_URL}/submit-doc`,
+      {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -14,15 +16,16 @@ export default function App() {
           docUrl: "http://example.com/test.pdf",
           event: "Hackathon Final Demo at 5 PM",
         }),
-      });
+      }
+    );
 
-      const data = await res.json();
-      setWorkflow(data);
-    } catch (err) {
-      console.error(err);
-      alert("⚠️ Pipeline failed. Check backend agents.");
-    }
-  };
+    const data = await res.json();
+    setWorkflow(data);
+  } catch (err) {
+    console.error(err);
+    alert("⚠️ Pipeline failed. Check backend agents.");
+  }
+};
 
   const exportLogs = () => {
     if (!workflow) return;

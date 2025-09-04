@@ -1,0 +1,8 @@
+{
+  "name": "multi-agent-system",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "concurrently \"npm run dev --prefix agents/agent-a-collector\" \"npm run dev --prefix agents/agent-b-verifier\" \"npm run dev --prefix agents/agent-c-scheduler\" \"npm run dev --prefix agents/agent-d-notifier\""
+  }
+}

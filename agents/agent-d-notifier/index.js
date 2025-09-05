@@ -7,13 +7,20 @@ const app = express();
 app.use(cors()); 
 app.use(express.json());
 
+// Root health check
+app.get("/", (req, res) => {
+  res.send("✅ Agent D (Notifier) is running...");
+});
+
 // Health
 app.get("/health", (_, res) => res.json({ ok: true, agent: "D" }));
 
 // Send notification
 app.post("/notify", (req, res) => {
   const { userId, message } = req.body;
-  if (!userId || !message) return res.status(400).json({ error: "userId and message required" });
+  if (!userId || !message) {
+    return res.status(400).json({ error: "userId and message required" });
+  }
 
   res.json({
     status: "notified 📩",

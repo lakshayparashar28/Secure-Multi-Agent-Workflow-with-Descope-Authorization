@@ -7,6 +7,11 @@ const app = express();
 app.use(cors()); 
 app.use(express.json());
 
+// Root health check
+app.get("/", (req, res) => {
+  res.send("✅ Agent C (Scheduler) is running...");
+});
+
 // Health
 app.get("/health", (_, res) => res.json({ ok: true, agent: "C" }));
 

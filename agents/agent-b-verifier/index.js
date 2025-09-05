@@ -7,7 +7,12 @@ const app = express();
 app.use(cors()); 
 app.use(express.json());
 
-// Health
+// Root health check
+app.get("/", (req, res) => {
+  res.send("✅ Agent B (Verifier) is running...");
+});
+
+// Health (JSON style)
 app.get("/health", (_, res) => res.json({ ok: true, agent: "B" }));
 
 // Receive simple messages

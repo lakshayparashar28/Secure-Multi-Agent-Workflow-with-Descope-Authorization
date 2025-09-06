@@ -1,0 +1,138 @@
+Secure Multi-Agent Workflow with Descope Authorization
+Project Overview
+
+In modern digital workflows, managing documents, verifying authenticity, scheduling events, and sending timely notifications are usually handled by separate systems. This project demonstrates a secure, automated, multi-agent pipeline that integrates all these tasks into a seamless workflow.
+
+The system consists of four agents (microservices), each responsible for a specific task, connected in sequence to form a robust pipeline:
+
+Agent A (Collector): Receives documents & initiates the workflow.
+
+Agent B (Verifier): Validates the document (PDF/JPG).
+
+Agent C (Scheduler): Schedules an event after verification.
+
+Agent D (Notifier): Sends final notifications to the user.
+
+All agents are orchestrated with secure API calls, with centralized control via a React-based dashboard.
+
+Problem Statement
+
+Organizations often deal with fragmented workflows where data collection, verification, scheduling, and notifications are handled separately.
+This leads to:
+
+Manual overhead & errors.
+
+Security risks in multi-step processes.
+
+Lack of transparency and traceability.
+
+Objectives
+
+Build a modular multi-agent workflow system that automates the entire pipeline.
+
+Provide real-time monitoring through a dashboard.
+
+Ensure secure, scalable communication between agents.
+
+Make the solution easily extensible to add new agents or workflows.
+
+Methodology
+
+Microservices Architecture → Each agent is an independent Node.js service deployed on Render.
+
+Agent A Orchestration → Acts as the pipeline entry point, sequentially calling B → C → D.
+
+RESTful APIs → Agents communicate over HTTP with JSON payloads.
+
+Frontend Dashboard → Built in React (Vercel), allowing users to trigger workflows & view logs.
+
+Environment Variables → All inter-service URLs are securely managed using .env.
+
+System Architecture
+User → Dashboard (React) → Agent A (Collector)
+          → Agent B (Verifier)
+          → Agent C (Scheduler)
+          → Agent D (Notifier)
+
+Scope of the Solution
+
+Can be extended for enterprise document workflows (e.g., KYC, insurance claims).
+
+Integrates well with event-driven systems (hackathons, scheduling platforms).
+
+Scales horizontally by adding more agents for additional tasks.
+
+Tech Stack
+
+Frontend: React, Vite, TailwindCSS, Framer Motion
+
+Backend (Agents): Node.js, Express.js, Axios, Dotenv, CORS
+
+Hosting:
+
+Frontend → Vercel
+
+Backend Agents → Render (A, B, C, D)
+
+Authentication (future-ready): Descope
+
+
+
+How to Run Locally
+1️⃣ Clone the Repository
+git clone https://github.com/lakshayparashar28/Secure-Multi-Agent-Workflow.git
+cd Secure-Multi-Agent-Workflow
+
+2️⃣ Setup Backend Agents
+
+Each agent runs independently. Example for Agent A:
+
+cd agent-a-collector
+npm install
+npm start
+
+
+Do the same for agent-b-verifier, agent-c-scheduler, agent-d-notifier.
+
+3️⃣ Setup Frontend
+cd frontend-dashboard
+npm install
+npm run dev
+
+4️⃣ Configure .env
+
+Example .env.example:
+
+# Agent A
+PORT=3001
+AGENT_B_URL=http://localhost:3002
+AGENT_C_URL=http://localhost:3003
+AGENT_D_URL=http://localhost:3004
+
+# Frontend
+VITE_API_URL=http://localhost:3001
+
+
+Rename to .env and update with your deployment URLs.
+
+Example Workflow
+
+User uploads document via Dashboard.
+
+Agent A forwards to Agent B → Document verified.
+
+Agent C schedules the event.
+
+Agent D notifies the user.
+
+Dashboard displays timeline logs & allows exporting JSON logs.
+
+Future Enhancements
+
+Add JWT-based authentication (Descope).
+
+Support for more document formats.
+
+WebSocket integration for real-time status updates.
+
+Extend pipeline to more than 4 agents.
